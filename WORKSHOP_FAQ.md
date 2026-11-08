@@ -66,6 +66,8 @@ Before the workshop:
 
 That's it — no credit card, the free tier covers everything we do. You will **not** be asked to put your OpenAI key into Arize: on the free tier the evaluation judge, prompt playground and Alyx assistant all run on Arize's own managed model.
 
+**Already use Arize at work?** Sign up for a fresh personal free account anyway. The labs assume Arize's US region (the default for self-serve signups); a company account may be hosted in the EU region, which needs different endpoints we don't cover. A personal space also keeps workshop data out of your employer's account.
+
 ---
 
 **Why OpenAI and not Anthropic, Google, or someone else?**
