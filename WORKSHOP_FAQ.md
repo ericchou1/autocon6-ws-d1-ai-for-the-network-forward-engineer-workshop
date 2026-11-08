@@ -33,6 +33,12 @@ If you do hit the limit mid-workshop, paying a small overage (~$0.18/hour for a 
 
 ---
 
+**One setting to change before workshop day: the idle timeout**
+
+Codespaces stop themselves after **30 minutes without activity** — which is exactly the length of our afternoon break. A stopped Codespace resumes in seconds and keeps your files, but the things you started by hand (the local LLM server, the router topology, the Streamlit app) have to be restarted. Save yourself the hassle: go to [github.com/settings/codespaces](https://github.com/settings/codespaces), find **Default idle timeout**, and set it to **240 minutes** (the maximum). It only applies to Codespaces created *after* you change it, so do it before Tuesday. The cost difference is nil for our purposes — an idle Codespace during a 30-minute break is 2 core-hours.
+
+---
+
 **Do I need GitHub Pro? Is there a "nicer" setup?**
 
 No — the free default works for the entire workshop. But if you have GitHub Pro (or any paid plan that unlocks larger machines), you can opt into a second configuration, *"AutoCon 6 AI Workshop — GitHub Pro (larger machine)"*, that runs on an 8-core / 32 GB machine instead of the free 4-core / 16 GB one. It's noticeably snappier (especially when the network sim and a local LLM run side by side) and adds the **Open WebUI** chat GUI in Lab 1. Pick it by choosing **New with options…** at launch and selecting it from the **Dev container configuration** dropdown. Totally optional — the free default is sufficient.
