@@ -64,7 +64,9 @@ Before the workshop:
 1. Sign up for a **free** account at [app.arize.com](https://app.arize.com) (you'll verify your email and set a password).
 2. Once you're in, find **Space Settings** and note where your **Space ID** and **API Key** live — you'll copy both into the lab environment on workshop day.
 
-That's it — no credit card, the free tier covers everything we do. You will **not** be asked to put your OpenAI key into Arize: on the free tier the evaluation judge, prompt playground and Alyx assistant all run on Arize's own managed model.
+That's it — no credit card, the free tier covers everything we do.
+
+**Will my OpenAI key go into Arize?** Yes, in Lab 5. Arize's prompt playground and its LLM judge call a model on your behalf, and on the free tier that means your provider and your key, stored in your own Arize space (**Settings → AI Providers**). The lab walks you through it. What runs there costs a few cents of your $5 credit, and you can revoke the key at OpenAI whenever you like. *(Updated 12 November: an earlier version of this page said you would not need to do this. The lab changed, and so did this answer.)*
 
 **Already use Arize at work?** Sign up for a fresh personal free account anyway. The labs assume Arize's US region (the default for self-serve signups); a company account may be hosted in the EU region, which needs different endpoints we don't cover. A personal space also keeps workshop data out of your employer's account.
 

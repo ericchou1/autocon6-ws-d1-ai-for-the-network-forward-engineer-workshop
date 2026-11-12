@@ -52,8 +52,8 @@ See [WORKSHOP_FAQ.md](WORKSHOP_FAQ.md) for the full pre-workshop checklist.
 1. Click the green **Code** button at the top of this page.
 2. Switch to the **Codespaces** tab → **Create codespace on main**.
 3. When prompted for machine type, pick **4-core / 16 GB / 32 GB** (the free tier). The 2-core tier doesn't have enough memory for SR Linux + Ollama + the rest of the stack.
-4. Wait **5-8 minutes** for the first boot. The image is pulled once; subsequent restarts of the same Codespace are much faster.
-5. When you see the **welcome banner** in the terminal (starts with `==================================================` and ends with sanity-check commands), you're ready. The banner confirms the SR Linux image loaded — that's how you know the Codespace finished setup successfully.
+4. Wait **5-8 minutes** for the first boot, and be patient: **there is no progress bar**, and nothing on screen to tell you how far along it is. It is working. The image is pulled once; subsequent restarts of the same Codespace are much faster.
+5. When the editor has loaded, confirm that setup finished: open the **Command Palette** (`Ctrl+Shift+P`, or `Cmd+Shift+P` on a Mac) → **Codespaces: View Creation Log**. The log only becomes available once the Codespace has loaded. Near its end you should find the **welcome banner** (it starts with `==================================================` and ends with sanity-check commands). The banner confirms the SR Linux image loaded — that's how you know the Codespace finished setup successfully. You may also see the same banner in the terminal, but don't wait for it there: it only shows up if the editor happened to connect before setup finished.
 6. VS Code's **Ports** panel (bottom of the screen) starts **empty** — that's normal. Ports appear as the labs start the services behind them: **11434 (Ollama API)** shows up once you start Ollama in Lab 1, and **8501 (Streamlit)** auto-opens a preview when you run the app in Lab 4.
 7. Start with [**Lab 1**](Lab_1_Foundations/README.md).
 
@@ -64,7 +64,7 @@ See [WORKSHOP_FAQ.md](WORKSHOP_FAQ.md) for the full pre-workshop checklist.
 The Codespace takes 5–8 minutes to build on first boot, so on workshop day we'll start it right away and use the wait productively. Here's the opening sequence we'll do together:
 
 1. **Join the Slack channel first.** `#ac6-ws-d1-ai-for-the-network-forward-engineer` in the Network Automation Forum Slack is where we handle real-time questions, stalled builds, and anything that's easier to paste than to say out loud. Join it now so you can reach us without leaving your seat.
-2. **Everyone kick off your Codespace now.** Follow [Launch your Codespace](#launch-your-codespace) above. Don't just click and look away. While it builds, a notification in the bottom-right corner reads *"Setting up remote connection: Building codespace…"* — **click the "Building codespace…" words** to open the live creation log and watch the image layers pull. (That's the only way in while it's building; the Command Palette's Codespaces commands don't appear until the editor connects.) Expect 5–8 minutes. If it sits much longer, shows an error, or lands in the **"recovery mode"** dialog, flag it now (hand up or post in the channel) while we can fix it together, not 20 minutes in. After the editor opens, **Command Palette → "Codespaces: View Creation Log"** reopens the same log — that's where to confirm `postCreate.sh` finished and the SR Linux image loaded, alongside the welcome banner in the terminal.
+2. **Everyone kick off your Codespace now.** Follow [Launch your Codespace](#launch-your-codespace) above. Expect 5–8 minutes with **no progress bar** to watch, so be patient: it is working. If the build sits much longer than 8 minutes, shows an error, or lands in the **"recovery mode"** dialog, flag it now (hand up or post in the channel) while we can fix it together, not 20 minutes in. After the editor opens, **Command Palette → "Codespaces: View Creation Log"** shows the creation log — that's where to confirm `postCreate.sh` finished and the SR Linux image loaded. The welcome banner is near the end of it.
 3. **No OpenAI account yet?** While the image builds, head to [platform.openai.com](https://platform.openai.com), create an account, and **add the $5 prepaid credit** (see [Prerequisites](#prerequisites) — Lab 1 fails without funded credit). Takes a couple of minutes; the build runs in the background.
 4. **Optional — want to try Anthropic too?** If you'd like to compare Claude against OpenAI later (Lab 1's "Going further" #5), grab an Anthropic API key now at [console.anthropic.com](https://console.anthropic.com) — they include $5 in starter credits. Purely optional; OpenAI is all you need for the core labs.
 5. **Still building?** Good — we'll start the **Lab 1 "Concepts" section** together while the image finishes. No need for a running Codespace to follow along with the concepts; by the time we reach the first hands-on step, your environment will be ready.
@@ -116,7 +116,7 @@ Three SR Linux nodes. `r1` and `r2` are in the same AS and run iBGP over a loopb
 | 2 | [Structured Network Data](Lab_2_Structured_Network_Data/README.md) | Pydantic contract, validation + retries, your first eval on a golden set | ~35 min |
 | 3 | [LangChain Network Agent](Lab_3_LangChain_Network_Agent/README.md) | Tool, agent, explicit LangGraph, tracing debut, live routers | ~40 min |
 | 4 | [Streamlit Frontend](Lab_4_Streamlit_Frontend/README.md) | Chat UI that shows the agent's work; memory; sessions in Arize | ~30 min |
-| 5 | [Evaluation with Arize AX](Lab_5_Evaluation_Arize_AX/README.md) | Online judges, experiments, cloud-vs-local compare, hallucination traps | ~45 min |
+| 5 | [Evaluation with Arize AX](Lab_5_Evaluation_Arize_AX/README.md) | Read traces, a playground experiment scored by an LLM judge, the agent tested with hallucination traps | ~35 min |
 
 Each lab has a short **CONCEPTS.md** we'll go through together before the hands-on part, and a **Going Further** section for early finishers — the labs are built so that nobody waits. The [`bonus/`](bonus/) folder (MCP, real RAG, a provider swap to Anthropic, and a discussion guide) is for after Lab 5 or after the workshop.
 
@@ -131,8 +131,8 @@ Codespaces stop after **30 minutes idle** by default. Resuming is quick (Codespa
 **The Codespace gets stuck at "88% — installing docker-in-docker"**
 Common, harmless. Docker is usually already running by the time you see this. Open a new terminal in VS Code and run `docker info` — if you get version info back, the daemon is up and the progress dialog is just stale. Dismiss it.
 
-**The welcome banner never appears**
-postCreate.sh probably failed. Open the terminal panel, look for errors. The most common cause is a transient image-load failure — run `docker images` to check whether SR Linux loaded (and Open WebUI too, if you're on the GitHub Pro image).
+**I never saw the welcome banner in the terminal**
+That's usually fine. Setup writes to the creation log, and the banner only reaches a terminal if the editor connected before setup finished. Open **Command Palette → "Codespaces: View Creation Log"** and scroll to the end: the banner there means setup finished. If the log ends with an error instead, `postCreate.sh` failed. The most common cause is a transient image-load failure — run `docker images` to check whether SR Linux loaded (and Open WebUI too, if you're on the GitHub Pro image).
 
 **(GitHub Pro image) Open WebUI shows up but the model dropdown is empty**
 Ollama isn't running yet. In any terminal: `ollama serve > /tmp/ollama.log 2>&1 &`, then refresh the Open WebUI page. (Lab 1 Step 1 covers this.) On the default image there's no Open WebUI — chat from the CLI with `ollama run qwen3:4b-q4_K_M`.
