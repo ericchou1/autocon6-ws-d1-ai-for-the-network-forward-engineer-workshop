@@ -60,6 +60,8 @@ See [WORKSHOP_FAQ.md](WORKSHOP_FAQ.md) for the full pre-workshop checklist.
 
 ## Launch your Codespace
 
+**Prefer to watch first?** The video [AutoCon 6 Workshop - 0 Setting Up](https://www.youtube.com/watch?v=2fpX4Lf44xI) shows a fresh Codespace being launched, so you can see how long it takes and what to expect while you wait.
+
 1. Click the green **Code** button at the top of this page.
 2. Switch to the **Codespaces** tab → **Create codespace on main**.
 3. When prompted for machine type, pick **4-core / 16 GB / 32 GB** (the free tier). The 2-core tier doesn't have enough memory for SR Linux + Ollama + the rest of the stack.

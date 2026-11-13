@@ -10,6 +10,8 @@ Quick answers to questions I get a lot before this kind of workshop. Short versi
 
 Almost nothing. The whole workshop runs inside a GitHub Codespace — a cloud-based dev environment — so you don't need Docker, Python, or any of the AI tools installed locally. Just a modern browser (Chrome works best) and your laptop's terminal.
 
+Curious what starting that environment looks like? The video [AutoCon 6 Workshop - 0 Setting Up](https://www.youtube.com/watch?v=2fpX4Lf44xI) shows a fresh Codespace being launched, so you can see how long it takes. The steps themselves are in the [README](README.md#launch-your-codespace).
+
 ---
 
 **I'll need a GitHub account, right?**
