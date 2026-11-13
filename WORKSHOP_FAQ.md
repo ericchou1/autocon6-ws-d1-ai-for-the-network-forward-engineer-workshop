@@ -62,7 +62,13 @@ New this year: in Lab 5 we trace and *evaluate* the AI application you build —
 Before the workshop:
 
 1. Sign up for a **free** account at [app.arize.com](https://app.arize.com) (you'll verify your email and set a password).
-2. Once you're in, find **Space Settings** and note where your **Space ID** and **API Key** live — you'll copy both into the lab environment on workshop day.
+2. Once you're in, open **Settings** and note where your **Space ID** and **API Key** live — you'll copy both into the lab environment on workshop day:
+   - **Space ID:** the **Copy Space ID** button at the top right (shown below on the **Space Members** page).
+   - **API Key:** **API Keys**, under **Account Settings** in the left-hand menu.
+
+   ![Arize Settings with Space Members selected in the left-hand menu. Two things are boxed in red: the Copy Space ID button at the top right of the page, and API Keys in the left-hand menu under Account Settings. The space name and the member's email address are covered](images/arize-space-id-api-keys.png)
+
+   *Screenshot from 13 November. Arize rearranges its menus from time to time; if yours looks different, look for the same two names.*
 
 That's it — no credit card, the free tier covers everything we do.
 

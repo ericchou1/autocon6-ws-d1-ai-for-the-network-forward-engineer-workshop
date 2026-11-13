@@ -41,7 +41,11 @@ Bring:
 - A laptop with **Chrome** (recommended) or a recent Firefox/Edge
 - A **GitHub account** — free tier is fine. You need it because the entire lab environment runs in a **GitHub Codespace**; nothing else is installed on your laptop.
 - An **OpenAI account** with at least **$5 of prepaid credit** ([sign up here](https://platform.openai.com)). The account needs actual funded credit, not just a sign-up — Lab 1 will fail with a `RateLimitError` if there's no balance.
-- A **free Arize AX account** ([sign up here](https://app.arize.com)) — used in Lab 5 to trace and evaluate your agent. Free tier is fine; see the [FAQ](WORKSHOP_FAQ.md) for the two values (Space ID + API Key) to locate after signing up.
+- A **free Arize AX account** ([sign up here](https://app.arize.com)) — used in Lab 5 to trace and evaluate your agent. Free tier is fine. After signing up, open **Settings** in Arize and locate the two values you'll copy into the lab environment: the **Copy Space ID** button at the top right (shown here on the **Space Members** page), and **API Keys** under **Account Settings** in the left-hand menu.
+
+  ![Arize Settings with Space Members selected in the left-hand menu. Two things are boxed in red: the Copy Space ID button at the top right of the page, and API Keys in the left-hand menu under Account Settings. The space name and the member's email address are covered](images/arize-space-id-api-keys.png)
+
+  *Screenshot from 13 November. Arize rearranges its menus from time to time; if yours looks different, look for the same two names.*
 
 Have (we're not teaching these):
 
@@ -160,7 +164,7 @@ docker exec clab-autocon6-r3 sr_cli -ec "set / network-instance default protocol
 Lab 3 Step 6 walks through this in context.
 
 **`[tracing] ARIZE_SPACE_ID / ARIZE_API_KEY not set` — or traces don't show up in Arize**
-Open `.env` and confirm both values are filled (both come from **Space Settings** in Arize; the API key is long — make sure the whole thing pasted). If the keys are set but the project never appears, check the terminal for a connection error right after the `[tracing]` line, and give it a minute: spans are sent in batches. Labs 3–5 all work without tracing; you just won't have anything to evaluate in Lab 5.
+Open `.env` and confirm both values are filled (in Arize's **Settings**, the Space ID is the **Copy Space ID** button and the API key is under **Account Settings → API Keys**; the screenshot under [Prerequisites](#prerequisites) shows both. The API key is long — make sure the whole thing pasted). If the keys are set but the project never appears, check the terminal for a connection error right after the `[tracing]` line, and give it a minute: spans are sent in batches. Labs 3–5 all work without tracing; you just won't have anything to evaluate in Lab 5.
 
 **Streamlit's status box never collapses / the app looks frozen**
 Almost always the Simple Browser problem above. Open port 8501 in a real browser tab.
