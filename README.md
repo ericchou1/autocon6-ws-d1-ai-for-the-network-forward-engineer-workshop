@@ -3,15 +3,18 @@
 > **Track D1 · Tuesday afternoon · 4 hours · hands-on**
 > Eric Chou
 
-> ### 📣 Pre-workshop preview — read this first
+> ### 📣 The lab environment is live — read this first
 >
-> This repo is public early so you can get set up. **The lab environment is not live yet** — the lab folders are placeholders and the Codespace configuration hasn't been published. Both land by **Monday, November 16** (possibly earlier; watch the Slack channel).
+> As of **Friday, November 13**, the whole workshop is in this repo: the Codespace configuration, all five labs and the bonus material. *(An earlier version of this page asked you not to create a Codespace yet. That no longer applies.)*
 >
-> **Do now:** work through [Prerequisites](#prerequisites) — GitHub account, OpenAI account with $5 of funded credit, free Arize AX account — and join `#ac6-ws-d1-ai-for-the-network-forward-engineer` on the Network Automation Forum Slack. Read the [FAQ](WORKSHOP_FAQ.md).
+> **Everyone, before Tuesday:** work through [Prerequisites](#prerequisites) — GitHub account, OpenAI account with $5 of funded credit, free Arize AX account — and join `#ac6-ws-d1-ai-for-the-network-forward-engineer` on the Network Automation Forum Slack. Read the [FAQ](WORKSHOP_FAQ.md).
 >
-> **Don't yet:** create a Codespace from this repo. Until the environment is published it would start a generic container, burn your free quota, and confuse everyone. We'll start them together on workshop day.
+> **Optional — try it early.** You don't have to: on Tuesday we launch together, and nothing assumes you've seen the labs. If you'd like a head start, follow [Launch your Codespace](#launch-your-codespace) and begin with Lab 1. If you do:
 >
-> *(This banner disappears when the environment goes live.)*
+> - **Stop your Codespace when you're done for the day** (github.com/codespaces → `...` → **Stop codespace**). The free allowance is about 30 hours a month on the 4-core machine, and the workshop itself needs four of them.
+> - **Keep that Codespace for Tuesday** instead of deleting it. It resumes in seconds, with your files as you left them.
+> - **On Tuesday, before we start, run `git pull`** in its terminal. We may still fix small things in the lab text before then. If git refuses because of a file you edited, run `git stash` and then `git pull` again.
+> - **Hit a problem?** Post it in the Slack channel. Finding it now helps everyone on Tuesday.
 
 This repo is the lab environment for the AC6 "AI for the Network Forward Engineer" workshop. The whole stack — local LLM, network simulator, Python toolchain, chat GUI — runs in a GitHub Codespace you launch with one click. Nothing to install locally beyond a browser.
 
@@ -27,7 +30,7 @@ Five labs, each building on the last:
 2. **Structured Network Data** — Pydantic schemas as a contract with the model: validated, typed output from real `show` commands — and a golden set that becomes your first eval.
 3. **LangChain Network Agent** — wrap the parser as a tool, hand it to a LangChain 1.x / LangGraph agent, watch it decide which router to ask, see the same agent as an explicit graph, and trace every run.
 4. **Streamlit Frontend** — a chat UI over the agent that *shows its work*: tool calls as they happen, conversation memory, every chat tagged as a session.
-5. **Evaluation with Arize AX** — online LLM judges on live traffic, experiments against known answers, cloud-vs-local comparisons, and hallucination traps the agent has to pass.
+5. **Evaluation with Arize AX** — read the traces you produced, run an experiment in Arize with an LLM judge scoring every answer, show that a prompt change helped, and put the agent through hallucination traps it has to pass.
 
 By the end you've built a small but real "network co-pilot" — and the evaluation harness that proves it works. Runs anywhere a Codespace can run.
 
@@ -140,11 +143,14 @@ Ollama isn't running yet. In any terminal: `ollama serve > /tmp/ollama.log 2>&1 
 **The local model is slow / seems stuck**
 It's a 4-billion-parameter model on four CPU cores: expect ~6 tokens per second, so a two-sentence answer takes about 10 seconds and the first call after `ollama serve` adds 10–20 seconds of model loading. If it's taking *minutes*, you probably left thinking mode on — add `--think=false` on the CLI, or `reasoning=False` in Python (Lab 1 Step 6 explains the dial). Thinking mode on a hard question can genuinely run 10+ minutes locally; Ctrl-C is fine.
 
-**Streamlit pages fail to render in VS Code's Simple Browser**
-Open the forwarded port in a *real* browser instead: in the Ports panel, click the globe icon next to port 8501. Simple Browser's sandboxing breaks Streamlit's WebSocket connection; a real browser tab works fine.
+**Streamlit's preview pane says "github.com refused to connect", or the page is there but dead**
+That pane is VS Code's Simple Browser, and Streamlit doesn't work in it. Open the app in a *real* browser tab instead: in the Ports panel, click the globe icon next to port 8501, or Ctrl-click (Cmd-click on a Mac) the **Local URL** that Streamlit printed in the terminal. The Network and External URLs it also prints are addresses inside the Codespace; your laptop can't reach them.
 
 **`containerlab deploy` fails with "User 'vscode' is not part of containerlab admin group"**
 That group membership is baked into the image, so this shouldn't happen on a fresh Codespace. If it does, run `sudo usermod -aG clab_admins vscode && newgrp clab_admins` and retry.
+
+**`containerlab deploy` prints warnings, such as `iptables check error: exit status 111`**
+Harmless. The Codespace runs Docker inside Docker, and containerlab's firewall-rule check doesn't work in that setup. You may also see deprecation warnings about the routers' node type. We saw both on our own deploys in a Codespace (8 November 2026), and the three routers came up and peered normally every time. What matters is the table at the end: if it lists `clab-autocon6-r1`, `r2` and `r3` as `running`, carry on.
 
 **After `containerlab deploy`, r1's eBGP session to r3 shows `active`**
 For the first 15–30 seconds after deploy that's normal — r3 finishes booting after the iBGP session is already up. Wait and re-check. If it's *still* not `established` after a minute, look at r3's own table; if it's empty, r3's startup config lost its neighbor line (seen occasionally on SR Linux 25.10). Put it back live:
@@ -157,7 +163,19 @@ Lab 3 Step 6 walks through this in context.
 Open `.env` and confirm both values are filled (both come from **Space Settings** in Arize; the API key is long — make sure the whole thing pasted). If the keys are set but the project never appears, check the terminal for a connection error right after the `[tracing]` line, and give it a minute: spans are sent in batches. Labs 3–5 all work without tracing; you just won't have anything to evaluate in Lab 5.
 
 **Streamlit's status box never collapses / the app looks frozen**
-Almost always the Simple Browser problem below. Open port 8501 in a real browser tab.
+Almost always the Simple Browser problem above. Open port 8501 in a real browser tab.
+
+**The editor stops responding, or shows "Reconnecting…"**
+Your browser lost its connection to the Codespace; the Codespace itself is still running, and your files are as you left them. Wait half a minute. If it doesn't come back, open the Command Palette and run **Developer: Reload Window**, or reload the browser tab. Afterwards, check your terminals and restart anything that is no longer running. (We saw this once in our own walkthrough, just after stopping Streamlit with `Ctrl+C` at the end of a long stretch of local-model use.)
+
+**I edited a lab file and want the original back**
+Every lab script is in the repo in its finished form, so git can restore it:
+```bash
+git status                                              # lists the files you've changed
+git checkout -- Lab_4_Streamlit_Frontend/chat_app.py    # restore one file
+git checkout -- Lab_4_Streamlit_Frontend/               # restore a whole lab folder
+```
+This discards your edits to those files and touches nothing else. Your `.env` is not tracked by git, so your keys are safe.
 
 **OpenAI calls fail with `AuthenticationError`**
 Your API key isn't loading. Open `.env` in the file explorer and confirm `OPENAI_API_KEY=sk-...` is there, with no quotes or trailing spaces.

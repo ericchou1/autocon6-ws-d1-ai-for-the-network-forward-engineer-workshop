@@ -1,0 +1,69 @@
+{
+    "name": "AutoCon 6 AI Workshop — GitHub Pro (larger machine)",
+    // GitHub Pro variant: the :pro image adds Open WebUI (the chat GUI used in
+    // Lab 1 Step 8). It's larger and meant for a bigger machine type, so this
+    // config is an opt-in — pick it on the "create with options" page. Free-tier
+    // students should use the default config (the top-level .devcontainer one).
+    "image": "ghcr.io/ericchou1/autocon6-ai-workshop:pro",
+    // Same features as the default config.
+    // - docker-in-docker: Docker daemon inside the Codespace for containerlab.
+    // - sshd: enables `gh codespace cp` for file transfer to/from the laptop.
+    "features": {
+        "ghcr.io/devcontainers/features/docker-in-docker:2": {
+            "version": "latest",
+            "dockerDashComposeVersion": "v2"
+        },
+        "ghcr.io/devcontainers/features/sshd:1": {
+            "version": "latest"
+        }
+    },
+    // Open WebUI on 8080 is forwarded here (it is NOT on the default config).
+    "forwardPorts": [
+        11434,
+        8501,
+        8080
+    ],
+    "portsAttributes": {
+        "11434": {
+            "label": "Ollama API",
+            "onAutoForward": "silent"
+        },
+        "8501": {
+            "label": "Streamlit",
+            "onAutoForward": "openPreview"
+        },
+        "8080": {
+            "label": "Open WebUI",
+            "onAutoForward": "openPreview"
+        }
+    },
+    // Same root postCreate.sh as the default config. It detects the Pro image
+    // by the presence of /opt/images/open-webui.tar and loads/starts Open WebUI.
+    "postCreateCommand": "bash postCreate.sh",
+    // Larger machine on purpose: the Pro image + Open WebUI wants more room.
+    // storage 64gb forces the >=8-core machine (which is excluded from free tier).
+    "hostRequirements": {
+        "cpus": 8,
+        "memory": "32gb",
+        "storage": "64gb"
+    },
+    // Standard Codespace workspace mount path.
+    // ${localWorkspaceFolderBasename} resolves to the repo name regardless of
+    // which .devcontainer config launched the Codespace.
+    "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
+    "remoteUser": "vscode",
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "ms-python.python",
+                "ms-python.vscode-pylance",
+                "ms-toolsai.jupyter",
+                "redhat.vscode-yaml",
+                "tamasfe.even-better-toml"
+            ],
+            "settings": {
+                "terminal.integrated.defaultProfile.linux": "bash"
+            }
+        }
+    }
+}

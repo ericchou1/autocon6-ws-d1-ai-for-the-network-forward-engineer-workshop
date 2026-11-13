@@ -1,0 +1,38 @@
+# AutoCon 6 AI Workshop — Python dependencies
+# Pinned to major.minor floors with a next-major ceiling: the image build
+# freezes whatever resolves on build day, so the floors guarantee the
+# generation we wrote the labs against and the ceilings stop a surprise
+# major bump on any later rebuild.
+
+# LangChain 1.x framework + integrations
+# (1.x: agents run on LangGraph natively; the old AgentExecutor moved to
+#  langchain-classic, which we deliberately do NOT install.)
+langchain>=1.4,<2
+langchain-openai>=1.7,<2
+langchain-ollama>=1.1,<2
+langchain-community>=0.4,<0.5
+
+# LangGraph (Lab 3 explicit agent graph; also what langchain 1.x agents run on)
+langgraph>=1.2,<2
+
+# OpenAI Python SDK (also pulled transitively by langchain-openai;
+# explicit pin lets us use it directly in labs without LangChain)
+openai>=3.46,<4
+
+# Pydantic (Lab 2 schemas; explicit pin so the labs can import it directly)
+pydantic>=2.14,<3
+
+# Streamlit for the UI lab
+streamlit>=1.67,<2
+
+# Arize AX observability + evaluation (Labs 3-5)
+arize-otel>=0.14,<1                                   # OTLP exporter to otlp.arize.com
+openinference-instrumentation-langchain>=0.1.82,<0.2  # auto-trace LangChain/LangGraph
+arize>=8.64,<9                                        # datasets + experiments SDK (Lab 5)
+
+# Utilities
+requests>=2.32
+python-dotenv>=1.0
+
+# Jupyter for notebook-based exploration / debugging
+jupyter>=1.0

@@ -1,0 +1,18 @@
+{
+  "_comment": "Hand-verified ground truth for the golden captures. Captured 2026-11-08 from the live clab topology (SR Linux 25.10.2). uptime_seconds is the Uptime column converted by hand; prefixes_* are the [Rx/Active/Tx] column.",
+  "r1_bgp.txt": [
+    {"peer_ip": "10.0.0.2",  "group": "ibgp-65001", "peer_as": 65001, "state": "established", "uptime_seconds": 69, "prefixes_received": 6, "prefixes_active": 1, "prefixes_sent": 10},
+    {"peer_ip": "10.1.13.2", "group": "ebgp-r3",    "peer_as": 65002, "state": "established", "uptime_seconds": 51, "prefixes_received": 3, "prefixes_active": 3, "prefixes_sent": 8}
+  ],
+  "r1_bgp_degraded.txt": [
+    {"peer_ip": "10.0.0.2",  "group": "ibgp-65001", "peer_as": 65001, "state": "established", "uptime_seconds": 71, "prefixes_received": 6, "prefixes_active": 1, "prefixes_sent": 7},
+    {"peer_ip": "10.1.13.2", "group": "ebgp-r3",    "peer_as": 65002, "state": "active",      "uptime_seconds": null, "prefixes_received": null, "prefixes_active": null, "prefixes_sent": null}
+  ],
+  "r2_bgp.txt": [
+    {"peer_ip": "10.0.0.1",  "group": "ibgp-65001", "peer_as": 65001, "state": "established", "uptime_seconds": 28, "prefixes_received": 10, "prefixes_active": 5, "prefixes_sent": 6}
+  ],
+  "r3_bgp.txt": [
+    {"peer_ip": "10.1.13.1", "group": "ebgp-r1",    "peer_as": 65001, "state": "established", "uptime_seconds": 12, "prefixes_received": 8, "prefixes_active": 7, "prefixes_sent": 3}
+  ],
+  "r3_bgp_empty.txt": []
+}

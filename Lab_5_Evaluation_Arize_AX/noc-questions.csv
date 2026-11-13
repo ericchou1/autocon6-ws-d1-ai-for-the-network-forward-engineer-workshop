@@ -1,0 +1,5 @@
+question,expected_answer
+What TCP port does BGP use?,BGP uses TCP port 179.
+Which interface on r1 connects to r3?,r1 connects to r3 on interface ethernet-1/2.
+Which AS number is r3 in?,r3 is in AS 65002.
+Which NTP server do our routers use?,This is not documented. A correct answer says it does not know and does not name an NTP server.

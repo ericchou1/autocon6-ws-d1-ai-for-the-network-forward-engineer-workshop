@@ -1,0 +1,68 @@
+{
+    "name": "AutoCon 6 AI Workshop",
+    // Pre-built image from GHCR. :latest = the DEFAULT (slim) image — no
+    // Open WebUI. Pin to a date tag (e.g. :slim-2026.06.01) for a frozen release.
+    "image": "ghcr.io/ericchou1/autocon6-ai-workshop:latest",
+    // Features layered on at Codespace startup (after image pull).
+    // - docker-in-docker: provides a Docker daemon inside the Codespace,
+    //   which containerlab uses to deploy SR Linux nodes.
+    // - sshd: enables `gh codespace cp` for copying files between the
+    //   attendee's laptop and the Codespace.
+    "features": {
+        "ghcr.io/devcontainers/features/docker-in-docker:2": {
+            "version": "latest",
+            "dockerDashComposeVersion": "v2"
+        },
+        "ghcr.io/devcontainers/features/sshd:1": {
+            "version": "latest"
+        }
+    },
+    // Forward Ollama and Streamlit ports out of the Codespace.
+    // (Open WebUI / 8080 is forwarded only on the GitHub Pro config.)
+    "forwardPorts": [
+        11434,
+        8501
+    ],
+    "portsAttributes": {
+        "11434": {
+            "label": "Ollama API",
+            "onAutoForward": "silent"
+        },
+        "8501": {
+            "label": "Streamlit",
+            "onAutoForward": "openPreview"
+        }
+    },
+    // Runs once when the Codespace is first created. Loads pre-baked
+    // images into Docker, seeds .env from .env.example, starts Open WebUI,
+    // prints welcome banner.
+    "postCreateCommand": "bash postCreate.sh",
+    // Minimum machine spec. hostRequirements is a *floor* — Codespaces greys
+    // out anything smaller. 32gb keeps the free-tier 4-core/16GB/32GB machine
+    // selectable (64gb would force a paid >=8-core box).
+    "hostRequirements": {
+        "cpus": 4,
+        "memory": "16gb",
+        "storage": "32gb"
+    },
+    // Standard Codespace workspace mount path.
+    // ${localWorkspaceFolderBasename} resolves to the repo name.
+    "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
+    // Run as the non-root vscode user (matches USER directive in Dockerfile).
+    "remoteUser": "vscode",
+    // VS Code extensions and settings auto-installed in the Codespace.
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "ms-python.python",
+                "ms-python.vscode-pylance",
+                "ms-toolsai.jupyter",
+                "redhat.vscode-yaml",
+                "tamasfe.even-better-toml"
+            ],
+            "settings": {
+                "terminal.integrated.defaultProfile.linux": "bash"
+            }
+        }
+    }
+}
