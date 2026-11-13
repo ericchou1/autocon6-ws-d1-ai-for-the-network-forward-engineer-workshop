@@ -37,6 +37,16 @@ If you do hit the limit mid-workshop, paying a small overage (~$0.18/hour for a 
 
 Codespaces stop themselves after **30 minutes without activity** — which is exactly the length of our afternoon break. A stopped Codespace resumes in seconds and keeps your files, but the things you started by hand (the local LLM server, the router topology, the Streamlit app) have to be restarted. Save yourself the hassle: go to [github.com/settings/codespaces](https://github.com/settings/codespaces), find **Default idle timeout**, and set it to **240 minutes** (the maximum). It only applies to Codespaces created *after* you change it, so do it before Tuesday. The cost difference is nil for our purposes — an idle Codespace during a 30-minute break is 2 core-hours.
 
+The link above takes you straight to the page. If you'd rather click your way there, it is **Codespaces** in the left-hand menu of your GitHub **Settings**:
+
+![GitHub account Settings. In the left-hand menu, under Code, planning, and automation, Codespaces is boxed in red. The page on the right shows the Codespaces settings: Dotfiles, Secrets, GPG verification and Settings Sync. The line under the account name is covered](images/github-settings-codespaces.png)
+
+Scroll down that page to **Default idle timeout**, enter **240** and click **Save**:
+
+![Further down the same page, the Default idle timeout section is boxed in red. Its text says the maximum value is 240 minutes (4 hours); the field reads 240 minutes, with a Save button beside it. Editor preference is above it, Default retention period and Host image version preference below](images/github-codespaces-idle-timeout.png)
+
+*Screenshots from 13 November. GitHub rearranges its settings from time to time; if yours looks different, look for **Default idle timeout**.*
+
 ---
 
 **Do I need GitHub Pro? Is there a "nicer" setup?**
