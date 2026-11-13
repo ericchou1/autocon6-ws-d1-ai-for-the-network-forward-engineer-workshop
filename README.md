@@ -40,7 +40,11 @@ Bring:
 
 - A laptop with **Chrome** (recommended) or a recent Firefox/Edge
 - A **GitHub account** — free tier is fine. You need it because the entire lab environment runs in a **GitHub Codespace**; nothing else is installed on your laptop.
-- An **OpenAI account** with at least **$5 of prepaid credit** ([sign up here](https://platform.openai.com)). The account needs actual funded credit, not just a sign-up — Lab 1 will fail with a `RateLimitError` if there's no balance.
+- An **OpenAI account** with at least **$5 of prepaid credit** ([sign up here](https://platform.openai.com)). The account needs actual funded credit, not just a sign-up — Lab 1 will fail with a `RateLimitError` if there's no balance. The API key you'll copy into the lab environment is created under **API Keys**, in the left-hand menu of the platform's home page.
+
+  ![The OpenAI platform Home page. In the left-hand menu, API Keys is boxed in red, between Daybreak and Usage. The project selector at the top left reads AutoCon6, and the usage charts in the middle of the page are covered](images/openai-api-keys.png)
+
+  *Screenshot from 13 November. OpenAI rearranges its menus from time to time; if yours looks different, look for **API Keys**.*
 - A **free Arize AX account** ([sign up here](https://app.arize.com)) — used in Lab 5 to trace and evaluate your agent. Free tier is fine. After signing up, open **Settings** in Arize and locate the two values you'll copy into the lab environment: the **Copy Space ID** button at the top right (shown here on the **Space Members** page), and **API Keys** under **Account Settings** in the left-hand menu.
 
   ![Arize Settings with Space Members selected in the left-hand menu. Two things are boxed in red: the Copy Space ID button at the top right of the page, and API Keys in the left-hand menu under Account Settings. The space name and the member's email address are covered](images/arize-space-id-api-keys.png)

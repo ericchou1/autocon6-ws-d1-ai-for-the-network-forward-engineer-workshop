@@ -53,6 +53,12 @@ $5 is plenty — you'll likely spend under $0.50 during the lab. Whatever's left
 
 If you can't add credit for some reason, flag it to me at the workshop — I have a backup key for emergencies, but bringing your own is strongly preferred.
 
+The API key you'll copy into the lab environment is created under **API Keys**, in the left-hand menu of the platform's home page:
+
+![The OpenAI platform Home page. In the left-hand menu, API Keys is boxed in red, between Daybreak and Usage. The project selector at the top left reads AutoCon6, and the usage charts in the middle of the page are covered](images/openai-api-keys.png)
+
+*Screenshot from 13 November. OpenAI rearranges its menus from time to time; if yours looks different, look for **API Keys**.*
+
 ---
 
 **What's this Arize AX account for?**
